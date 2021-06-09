@@ -65,14 +65,14 @@ interface ChangeEventInfo<RecordType> {
 
 export interface TableProps<RecordType>
   extends Omit<
-    RcTableProps<RecordType>,
-    | 'transformColumns'
-    | 'internalHooks'
-    | 'internalRefs'
-    | 'data'
-    | 'columns'
-    | 'scroll'
-    | 'emptyText'
+  RcTableProps<RecordType>,
+  | 'transformColumns'
+  | 'internalHooks'
+  | 'internalRefs'
+  | 'data'
+  | 'columns'
+  | 'scroll'
+  | 'emptyText'
   > {
   dropdownPrefixCls?: string;
   dataSource?: RcTableProps<RecordType>['data'];
@@ -81,6 +81,7 @@ export interface TableProps<RecordType>
   loading?: boolean | SpinProps;
   size?: SizeType;
   bordered?: boolean;
+  hiddenOption?: boolean;
   locale?: TableLocale;
 
   onChange?: (
@@ -127,6 +128,7 @@ function Table<RecordType extends object = any>(props: TableProps<RecordType>) {
     sortDirections,
     locale,
     showSorterTooltip = true,
+    hiddenOption = false,
   } = props;
 
   devWarning(
@@ -139,10 +141,23 @@ function Table<RecordType extends object = any>(props: TableProps<RecordType>) {
   const mergedColumns = React.useMemo(() => {
     const matched = new Set(Object.keys(screens).filter((m: Breakpoint) => screens[m]));
 
-    return (columns || convertChildrenToColumns(children)).filter(
+    let cd = (columns || convertChildrenToColumns(children)).filter(
       (c: ColumnType<RecordType>) =>
         !c.responsive || c.responsive.some((r: Breakpoint) => matched.has(r)),
     );
+
+    if (hiddenOption) {
+      cd = cd.map(it => {
+        if (it.key === 'action') {
+          it.title = ''
+          const temp = it.render;
+          it.render = (t, r, i) => { return <div className='hiddenOption'>{temp(t, r, i)}</div> }
+        }
+        return it
+      })
+      console.log('cd :>> ', cd);
+    }
+    return cd;
   }, [children, columns, screens]);
 
   const tableProps = omit(props, ['className', 'style', 'columns']) as TableProps<RecordType>;
@@ -477,6 +492,7 @@ function Table<RecordType extends object = any>(props: TableProps<RecordType>) {
     },
     className,
   );
+
   return (
     <div className={wrapperClassNames} style={style}>
       <Spin spinning={false} {...spinProps}>

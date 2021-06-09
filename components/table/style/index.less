@@ -88,25 +88,25 @@
         color: @table-header-color;
         font-weight: 500;
         text-align: left;
-        background: @table-header-bg;
-        border-bottom: @border-width-base @border-style-base @table-border-color;
+        // background: @table-header-bg;
+        // border-bottom: @border-width-base @border-style-base @table-border-color;
         transition: background 0.3s ease;
 
         &[colspan]:not([colspan='1']) {
           text-align: center;
         }
 
-        &:not(:last-child):not(.@{table-prefix-cls}-selection-column):not(.@{table-prefix-cls}-row-expand-icon-cell):not([colspan])::before {
-          position: absolute;
-          top: 50%;
-          right: 0;
-          width: 1px;
-          height: 1.6em;
-          background-color: @table-header-cell-split-color;
-          transform: translateY(-50%);
-          transition: background-color 0.3s;
-          content: '';
-        }
+        // &:not(:last-child):not(.@{table-prefix-cls}-selection-column):not(.@{table-prefix-cls}-row-expand-icon-cell):not([colspan])::before {
+        //   position: absolute;
+        //   top: 50%;
+        //   right: 0;
+        //   width: 1px;
+        //   height: 1.6em;
+        //   background-color: @table-header-cell-split-color;
+        //   transform: translateY(-50%);
+        //   transition: background-color 0.3s;
+        //   content: '';
+        // }
       }
     }
 
@@ -121,7 +121,7 @@
   &-tbody {
     > tr {
       > td {
-        border-bottom: @border-width-base @border-style-base @table-border-color;
+        // border-bottom: @border-width-base @border-style-base @table-border-color;
         transition: background 0.3s;
 
         // ========================= Nest Table ===========================
@@ -141,11 +141,21 @@
             }
           }
         }
+        > .hiddenOption{
+          visibility: hidden;
+        }
       }
-
+      &.@{table-prefix-cls}-row:nth-of-type(even){
+        >td{
+          background: #F6F6FA;
+        }
+      }
       &.@{table-prefix-cls}-row:hover {
         > td {
-          background: @table-row-hover-bg;
+          background: #FFF0E5;
+          > .hiddenOption{
+            visibility:visible;
+          }
         }
       }
 

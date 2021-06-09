@@ -8,7 +8,12 @@
 @select-prefix-cls: ~'@{ant-prefix}-select';
 @select-height-without-border: @input-height-base - 2 * @border-width-base;
 @select-dropdown-edge-child-vertical-padding: @dropdown-edge-child-vertical-padding;
-
+.titleSelect{
+  border: @border-width-base @border-style-base @select-border-color;
+  padding-left: 6px;
+  overflow: hidden;
+  display: inline-block;
+}
 .select-selector() {
   position: relative;
   background-color: @select-background;

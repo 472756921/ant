@@ -77,7 +77,7 @@ ReactDOM.render(<SelectSizesDemo />, mountNode);
 
 ```css
 .code-box-demo .ant-select {
-  margin: 0 8px 10px 0;
+  /* margin: 0 8px 10px 0; */
 }
 
 .ant-row-rtl .code-box-demo .ant-select {

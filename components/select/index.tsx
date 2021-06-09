@@ -9,6 +9,9 @@ import { ConfigContext } from '../config-provider';
 import getIcons from './utils/iconUtil';
 import SizeContext, { SizeType } from '../config-provider/SizeContext';
 import { getTransitionName } from '../_util/motion';
+import BorderOutlined from '@ant-design/icons/BorderOutlined';
+import CheckSquareFilled from '@ant-design/icons/CheckSquareFilled';
+
 
 type RawValue = string | number;
 
@@ -34,6 +37,7 @@ export interface InternalSelectProps<VT> extends Omit<RcSelectProps<VT>, 'mode'>
 export interface SelectProps<VT>
   extends Omit<InternalSelectProps<VT>, 'inputIcon' | 'mode' | 'getInputElement' | 'backfill'> {
   mode?: 'multiple' | 'tags';
+  title?: boolean
 }
 
 export interface RefSelectProps {
@@ -54,6 +58,7 @@ const InternalSelect = <VT extends SelectValue = SelectValue>(
     listItemHeight = 24,
     size: customizeSize,
     notFoundContent,
+    title,
     ...props
   }: SelectProps<VT>,
   ref: React.Ref<RefSelectProps>,
@@ -116,10 +121,43 @@ const InternalSelect = <VT extends SelectValue = SelectValue>(
       [`${prefixCls}-lg`]: mergedSize === 'large',
       [`${prefixCls}-sm`]: mergedSize === 'small',
       [`${prefixCls}-rtl`]: direction === 'rtl',
-      [`${prefixCls}-borderless`]: !bordered,
+      [`${prefixCls}-borderless`]: title ? true : !bordered,
     },
     className,
   );
+  if (title) {
+    const { suffixIcon, itemIcon, removeIcon, clearIcon } = getIcons({
+      ...props,
+      multiple: isMultiple,
+      prefixCls,
+    });
+    const menuItemSelectedIcon = (props: any) => {
+      const { ...p } = props;
+      return <span style={{ position: 'absolute', left: 0 }}>{p.isSelected ? <CheckSquareFilled /> : <BorderOutlined />}</span>;
+    };
+    return <span className='titleSelect'> {title}
+      <RcSelect<VT>
+        ref={ref as any}
+        virtual={virtual}
+        dropdownMatchSelectWidth={dropdownMatchSelectWidth}
+        {...selectProps}
+        transitionName={getTransitionName(rootPrefixCls, 'slide-up', props.transitionName)}
+        listHeight={listHeight}
+        listItemHeight={listItemHeight}
+        mode={mode}
+        prefixCls={prefixCls}
+        direction={direction}
+        inputIcon={suffixIcon}
+        menuItemSelectedIcon={menuItemSelectedIcon}
+        removeIcon={removeIcon}
+        clearIcon={clearIcon}
+        notFoundContent={mergedNotFound}
+        className={mergedClassName}
+        getPopupContainer={getPopupContainer || getContextPopupContainer}
+        dropdownClassName={rcSelectRtlDropDownClassName}
+      />
+    </span>
+  }
 
   return (
     <RcSelect<VT>
