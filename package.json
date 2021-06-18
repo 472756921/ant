@@ -1,6 +1,6 @@
 {
-  "name": "antd",
-  "version": "4.16.1",
+  "name": "antd_b",
+  "version": "0.0.1",
   "description": "An enterprise-class UI design language and React components implementation",
   "title": "Ant Design",
   "keywords": [
@@ -53,7 +53,7 @@
     "bundlesize": "bundlesize",
     "check-commit": "node ./scripts/check-commit",
     "check-ts-demo": "node ./scripts/check-ts-demo",
-    "clean": "antd-tools run clean && rm -rf es lib coverage dist report.html",
+    "clean": "antd-tools run clean && rimraf -rf es lib coverage dist report.html",
     "prestart": "npm run version",
     "precompile": "npm run version",
     "pretest": "npm run version",

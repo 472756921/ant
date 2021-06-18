@@ -9,9 +9,6 @@ import { ConfigContext } from '../config-provider';
 import getIcons from './utils/iconUtil';
 import SizeContext, { SizeType } from '../config-provider/SizeContext';
 import { getTransitionName } from '../_util/motion';
-import BorderOutlined from '@ant-design/icons/BorderOutlined';
-import CheckSquareFilled from '@ant-design/icons/CheckSquareFilled';
-
 
 type RawValue = string | number;
 
@@ -37,7 +34,7 @@ export interface InternalSelectProps<VT> extends Omit<RcSelectProps<VT>, 'mode'>
 export interface SelectProps<VT>
   extends Omit<InternalSelectProps<VT>, 'inputIcon' | 'mode' | 'getInputElement' | 'backfill'> {
   mode?: 'multiple' | 'tags';
-  title?: boolean
+  title?: boolean;
 }
 
 export interface RefSelectProps {
@@ -59,6 +56,7 @@ const InternalSelect = <VT extends SelectValue = SelectValue>(
     size: customizeSize,
     notFoundContent,
     title,
+    maxTagCount,
     ...props
   }: SelectProps<VT>,
   ref: React.Ref<RefSelectProps>,
@@ -131,32 +129,33 @@ const InternalSelect = <VT extends SelectValue = SelectValue>(
       multiple: isMultiple,
       prefixCls,
     });
-    const menuItemSelectedIcon = (props: any) => {
-      const { ...p } = props;
-      return <span style={{ position: 'absolute', left: 0 }}>{p.isSelected ? <CheckSquareFilled /> : <BorderOutlined />}</span>;
-    };
-    return <span className='titleSelect'> {title}
-      <RcSelect<VT>
-        ref={ref as any}
-        virtual={virtual}
-        dropdownMatchSelectWidth={dropdownMatchSelectWidth}
-        {...selectProps}
-        transitionName={getTransitionName(rootPrefixCls, 'slide-up', props.transitionName)}
-        listHeight={listHeight}
-        listItemHeight={listItemHeight}
-        mode={mode}
-        prefixCls={prefixCls}
-        direction={direction}
-        inputIcon={suffixIcon}
-        menuItemSelectedIcon={menuItemSelectedIcon}
-        removeIcon={removeIcon}
-        clearIcon={clearIcon}
-        notFoundContent={mergedNotFound}
-        className={mergedClassName}
-        getPopupContainer={getPopupContainer || getContextPopupContainer}
-        dropdownClassName={rcSelectRtlDropDownClassName}
-      />
-    </span>
+    return (
+      <span className="titleSelect">
+        {' '}
+        {title}
+        <RcSelect<VT>
+          ref={ref as any}
+          virtual={virtual}
+          dropdownMatchSelectWidth={dropdownMatchSelectWidth}
+          {...selectProps}
+          transitionName={getTransitionName(rootPrefixCls, 'slide-up', props.transitionName)}
+          listHeight={listHeight}
+          listItemHeight={listItemHeight}
+          mode={mode}
+          prefixCls={prefixCls}
+          direction={direction}
+          inputIcon={suffixIcon}
+          maxTagCount={maxTagCount}
+          menuItemSelectedIcon={itemIcon}
+          removeIcon={removeIcon}
+          clearIcon={clearIcon}
+          notFoundContent={mergedNotFound}
+          className={mergedClassName}
+          getPopupContainer={getPopupContainer || getContextPopupContainer}
+          dropdownClassName={rcSelectRtlDropDownClassName}
+        />
+      </span>
+    );
   }
 
   return (

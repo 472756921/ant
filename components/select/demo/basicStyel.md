@@ -7,7 +7,7 @@ title:
 
 ## zh-CN
 
-添加 title 属性，包裹select
+添加 title 属性，包裹 select
 
 ## en-US
 
@@ -24,7 +24,7 @@ function handleChange(value) {
 
 ReactDOM.render(
   <>
-    <Select defaultValue="lucy" style={{ width: 120 }} onChange={handleChange} title='单选'>
+    <Select defaultValue="lucy" style={{ width: 120 }} onChange={handleChange} title="单选">
       <Option value="jack">Jack</Option>
       <Option value="lucy">Lucy</Option>
       <Option value="disabled" disabled>
@@ -32,7 +32,7 @@ ReactDOM.render(
       </Option>
       <Option value="Yiminghe">yiminghe</Option>
     </Select>
-    <Select defaultValue="lucy" style={{ width: 120 }} title='多选' mode="multiple">
+    <Select defaultValue="lucy" style={{ width: 120 }} title="多选" mode="multiple" maxTagCount={0}>
       <Option value="Jack">Jack</Option>
       <Option value="lucy">Lucy</Option>
     </Select>
