@@ -7,7 +7,7 @@ title:
 
 ## zh-CN
 
-添加 title 属性，包裹select
+添加 title 属性，包裹 select。 提供 maxTagCount 用于隐藏多选项。
 
 ## en-US
 
@@ -31,8 +31,8 @@ ReactDOM.render(
         Disabled
       </Option>
       <Option value="Yiminghe">yiminghe</Option>
-    </Select>
-    <Select defaultValue="lucy" style={{ width: 120 }} title='多选' mode="multiple">
+    </Select>{' '}
+    <Select defaultValue="lucy" style={{ width: 120 }} title='多选' mode="multiple"  maxTagCount={1}>
       <Option value="Jack">Jack</Option>
       <Option value="lucy">Lucy</Option>
     </Select>
