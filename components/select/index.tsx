@@ -9,9 +9,6 @@ import { ConfigContext } from '../config-provider';
 import getIcons from './utils/iconUtil';
 import SizeContext, { SizeType } from '../config-provider/SizeContext';
 import { getTransitionName } from '../_util/motion';
-import BorderOutlined from '@ant-design/icons/BorderOutlined';
-import CheckSquareFilled from '@ant-design/icons/CheckSquareFilled';
-
 
 type RawValue = string | number;
 

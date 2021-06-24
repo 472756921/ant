@@ -234,7 +234,6 @@ const Drawer = React.forwardRef<DrawerRef, InternalDrawerProps>(
       return (
         <div className={headerClassName} style={headerStyle}>
           {title && <div className={`${prefixCls}-title`}>{title}</div>}
-          {closable && renderCloseIcon()}
         </div>
       );
     }
@@ -277,6 +276,7 @@ const Drawer = React.forwardRef<DrawerRef, InternalDrawerProps>(
           onTransitionEnd={onDestroyTransitionEnd}
         >
           {renderHeader()}
+          {closable && renderCloseIcon()}
           <div className={`${prefixCls}-body`} style={bodyStyle}>
             {children}
           </div>

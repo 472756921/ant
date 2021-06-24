@@ -83,7 +83,7 @@ export interface TableProps<RecordType>
   bordered?: boolean;
   hiddenOption?: boolean;
   locale?: TableLocale;
-
+  rowLenHeight: string,
   onChange?: (
     pagination: TablePaginationConfig,
     filters: Record<string, FilterValue | null>,
@@ -113,6 +113,7 @@ function Table<RecordType extends object = any>(props: TableProps<RecordType>) {
     rowSelection,
     rowKey,
     rowClassName,
+    rowLenHeight,
     columns,
     children,
     childrenColumnName: legacyChildrenColumnName,
@@ -147,15 +148,16 @@ function Table<RecordType extends object = any>(props: TableProps<RecordType>) {
     );
 
     if (hiddenOption) {
-      cd = cd.map(it => {
+      cd = cd.map((it: any) => {
         if (it.key === 'action') {
-          it.title = ''
+          it.title = '';
           const temp = it.render;
-          it.render = (t, r, i) => { return <div className='hiddenOption'>{temp(t, r, i)}</div> }
+          it.render = (t: any, r: any, i: any) => (
+            <div className="hiddenOption">{temp(t, r, i)}</div>
+          );
         }
-        return it
-      })
-      console.log('cd :>> ', cd);
+        return it;
+      });
     }
     return cd;
   }, [children, columns, screens]);
@@ -163,9 +165,11 @@ function Table<RecordType extends object = any>(props: TableProps<RecordType>) {
   const tableProps = omit(props, ['className', 'style', 'columns']) as TableProps<RecordType>;
 
   const size = React.useContext(SizeContext);
-  const { locale: contextLocale = defaultLocale, renderEmpty, direction } = React.useContext(
-    ConfigContext,
-  );
+  const {
+    locale: contextLocale = defaultLocale,
+    renderEmpty,
+    direction,
+  } = React.useContext(ConfigContext);
   const mergedSize = customizeSize || size;
   const tableLocale = { ...contextLocale.Table, ...locale } as TableLocale;
   const rawData: readonly RecordType[] = dataSource || EMPTY_LIST;
@@ -278,10 +282,10 @@ function Table<RecordType extends object = any>(props: TableProps<RecordType>) {
     tableLocale,
     showSorterTooltip,
   });
-  const sortedData = React.useMemo(() => getSortData(rawData, sortStates, childrenColumnName), [
-    rawData,
-    sortStates,
-  ]);
+  const sortedData = React.useMemo(
+    () => getSortData(rawData, sortStates, childrenColumnName),
+    [rawData, sortStates],
+  );
 
   changeEventInfo.sorter = getSorters();
   changeEventInfo.sorterStates = sortStates;
