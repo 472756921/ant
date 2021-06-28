@@ -65,14 +65,14 @@ interface ChangeEventInfo<RecordType> {
 
 export interface TableProps<RecordType>
   extends Omit<
-  RcTableProps<RecordType>,
-  | 'transformColumns'
-  | 'internalHooks'
-  | 'internalRefs'
-  | 'data'
-  | 'columns'
-  | 'scroll'
-  | 'emptyText'
+    RcTableProps<RecordType>,
+    | 'transformColumns'
+    | 'internalHooks'
+    | 'internalRefs'
+    | 'data'
+    | 'columns'
+    | 'scroll'
+    | 'emptyText'
   > {
   dropdownPrefixCls?: string;
   dataSource?: RcTableProps<RecordType>['data'];
@@ -83,7 +83,7 @@ export interface TableProps<RecordType>
   bordered?: boolean;
   hiddenOption?: boolean;
   locale?: TableLocale;
-  rowLenHeight: string,
+  rowLenHeight: string;
   onChange?: (
     pagination: TablePaginationConfig,
     filters: Record<string, FilterValue | null>,
@@ -113,7 +113,6 @@ function Table<RecordType extends object = any>(props: TableProps<RecordType>) {
     rowSelection,
     rowKey,
     rowClassName,
-    rowLenHeight,
     columns,
     children,
     childrenColumnName: legacyChildrenColumnName,
