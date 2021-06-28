@@ -276,7 +276,7 @@ const Drawer = React.forwardRef<DrawerRef, InternalDrawerProps>(
           onTransitionEnd={onDestroyTransitionEnd}
         >
           {renderHeader()}
-          {closable && renderCloseIcon()}
+          {closable && visible && renderCloseIcon()}
           <div className={`${prefixCls}-body`} style={bodyStyle}>
             {children}
           </div>
