@@ -138,6 +138,8 @@ function Table<RecordType extends object = any>(props: TableProps<RecordType>) {
   );
 
   const screens = useBreakpoint();
+  const { getPrefixCls } = React.useContext(ConfigContext);
+  const prefixCls = getPrefixCls('table', customizePrefixCls);
   const mergedColumns = React.useMemo(() => {
     const matched = new Set(Object.keys(screens).filter((m: Breakpoint) => screens[m]));
 
@@ -152,7 +154,7 @@ function Table<RecordType extends object = any>(props: TableProps<RecordType>) {
           it.title = '';
           const temp = it.render;
           it.render = (t: any, r: any, i: any) => (
-            <div className="hiddenOption">{temp(t, r, i)}</div>
+            <div className={`${prefixCls}-hiddenOption`}>{temp(t, r, i)}</div>
           );
         }
         return it;
@@ -173,8 +175,6 @@ function Table<RecordType extends object = any>(props: TableProps<RecordType>) {
   const tableLocale = { ...contextLocale.Table, ...locale } as TableLocale;
   const rawData: readonly RecordType[] = dataSource || EMPTY_LIST;
 
-  const { getPrefixCls } = React.useContext(ConfigContext);
-  const prefixCls = getPrefixCls('table', customizePrefixCls);
   const dropdownPrefixCls = getPrefixCls('dropdown', customizeDropdownPrefixCls);
 
   const mergedExpandable: ExpandableConfig<RecordType> = {

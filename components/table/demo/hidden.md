@@ -7,7 +7,7 @@ title:
 
 ## zh-CN
 
-简单的表格，最后一列是各种操作，设置hiddenOption属性可对最后一列添加hover，同时隐藏head。
+简单的表格，最后一列是各种操作，设置 hiddenOption 属性可对最后一列添加 hover，同时隐藏 head。特别提醒， 希望隐藏操作项目的 key 要设置 为 'action'
 
 ## en-US
 
@@ -89,5 +89,5 @@ const data = [
   },
 ];
 
-ReactDOM.render(<Table columns={columns} dataSource={data} hiddenOption={true}/>, mountNode);
+ReactDOM.render(<Table columns={columns} dataSource={data} hiddenOption />, mountNode);
 ```
