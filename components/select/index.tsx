@@ -124,34 +124,32 @@ const InternalSelect = <VT extends SelectValue = SelectValue>(
     className,
   );
   if (title) {
-    const { suffixIcon, itemIcon, removeIcon, clearIcon } = getIcons({
-      ...props,
-      multiple: isMultiple,
-      prefixCls,
-    });
-    return <span className='titleSelect'> {title}
-      <RcSelect<VT>
-        ref={ref as any}
-        virtual={virtual}
-        maxTagCount={maxTagCount}
-        dropdownMatchSelectWidth={dropdownMatchSelectWidth}
-        {...selectProps}
-        transitionName={getTransitionName(rootPrefixCls, 'slide-up', props.transitionName)}
-        listHeight={listHeight}
-        listItemHeight={listItemHeight}
-        mode={mode}
-        prefixCls={prefixCls}
-        direction={direction}
-        inputIcon={suffixIcon}
-        menuItemSelectedIcon={itemIcon}
-        removeIcon={removeIcon}
-        clearIcon={clearIcon}
-        notFoundContent={mergedNotFound}
-        className={mergedClassName}
-        getPopupContainer={getPopupContainer || getContextPopupContainer}
-        dropdownClassName={rcSelectRtlDropDownClassName}
-      />
-    </span>
+    return (
+      <span className="titleSelect">
+        {title}
+        <RcSelect<VT>
+          ref={ref as any}
+          virtual={virtual}
+          maxTagCount={maxTagCount}
+          dropdownMatchSelectWidth={dropdownMatchSelectWidth}
+          {...selectProps}
+          transitionName={getTransitionName(rootPrefixCls, 'slide-up', props.transitionName)}
+          listHeight={listHeight}
+          listItemHeight={listItemHeight}
+          mode={mode}
+          prefixCls={prefixCls}
+          direction={direction}
+          inputIcon={suffixIcon}
+          menuItemSelectedIcon={itemIcon}
+          removeIcon={removeIcon}
+          clearIcon={clearIcon}
+          notFoundContent={mergedNotFound}
+          className={mergedClassName}
+          getPopupContainer={getPopupContainer || getContextPopupContainer}
+          dropdownClassName={rcSelectRtlDropDownClassName}
+        />
+      </span>
+    );
   }
 
   return (

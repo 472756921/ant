@@ -1,0 +1,103 @@
+@import '../../style/themes/index';
+@import '../../style/mixins/index';
+
+
+@table-page-prefix-cls: ~'@{ant-prefix}-table-page';
+
+.@{table-page-prefix-cls} {
+    .reset-component();
+    &-tablePage {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        &-headContent{
+            &-head{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                border-bottom: 1px solid #eee;
+                padding: 6px;
+                &-tablePageHeadTitle{
+                    font-size: 16px;
+                    font-weight: 400;
+                }
+                &-tablePageHeadBtns{}
+            }
+        &-tablePageQuery{
+            padding: 6px;
+            overflow: auto;
+            &-queryC{
+                width: calc(100% - 230px);
+                float: left;
+            }
+            &-querM{
+                width: 230px;
+                float: right;
+                text-align: right;
+            }
+        }
+        }
+        &-tablePageTable{
+            padding: 6px;
+        }
+        &-tablePageFooter {
+            padding: 6px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+        }
+    &-attachmentList {
+        margin-top: 10px;
+        &-flex {
+            display: flex;
+            align-items: center;
+        }
+        &-attachmentItem {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 4px 0;
+            > *:not(:first-child) {
+                margin-left: 8px;
+            }
+            &-iconDel {
+                color: red;
+                visibility: hidden;
+            }
+            &:hover {
+                background: rgba(247, 247, 250, 1);
+                .iconDel {
+                    visibility: visible;
+                }
+            }
+            &-fileIcon {
+                font-size: 26px;
+            }
+            &-fileLabel {
+                position: relative;
+                margin: 0 12px;
+                width:500px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                &-fileUrl {
+                    color: #2c353e;
+                }
+                &-delFileLabel {
+                    color: #b1bac3;
+                }
+                &-delLine {
+                    width: calc(100% + 8px);
+                    height: 1px;
+                    background: #2c353e;
+                    position: absolute;
+                    left: -4px;
+                    top: 50%;
+                }
+            }
+        }
+    }
+    }
+    
+}

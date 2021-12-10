@@ -37,6 +37,7 @@ module.exports = {
     'docs/resources': ['./docs/resources.zh-CN.md', './docs/resources.en-US.md'],
   },
   theme: './site/theme',
+  root: '/ant/',
   htmlTemplate: './site/theme/static/template.html',
   themeConfig,
   filePathMapper(filePath) {
