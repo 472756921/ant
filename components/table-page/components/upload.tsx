@@ -14,12 +14,13 @@ import {
 } from '@ant-design/icons';
 import Button from '../../button';
 import Upload from '../../upload';
+import { HttpRequestHeader } from '../../upload/interface';
 import Popconfirm from '../../popconfirm';
 import Tooltip from '../../tooltip';
 import message from '../../message';
 import { encodeUrl, fileTypeMap } from '../utils';
 
-interface headersI {
+interface headersI extends HttpRequestHeader {
   Authorization: string;
 }
 interface removeFileFnI {
@@ -31,7 +32,7 @@ interface FilesI {
   operator?: string;
   path?: string;
   time?: string;
-  uid?: string | number;
+  uid: string;
   url?: string;
   isDeleted?: string | boolean;
   [propName: string]: any;
@@ -82,7 +83,7 @@ function UploadInFile({
     });
   }, [fileListNow]);
 
-  const onChange = ({ file, fileList }) => {
+  const onChange = ({ file, fileList }: { file: any; fileList: any }) => {
     const { status } = file;
     if (status === 'uploading') {
       setPploadLoading(true);
@@ -90,7 +91,7 @@ function UploadInFile({
     }
     if (status === 'error') {
       setPploadLoading(false);
-      const nfileList = fileList.filter(it => it.status !== 'error');
+      const nfileList = fileList.filter((it: any) => it.status !== 'error');
       setfileListNow(nfileList);
       message.error(`${file?.name} 上传失败`);
     }
@@ -104,7 +105,7 @@ function UploadInFile({
     }
   };
 
-  function beforeUpload(file) {
+  function beforeUpload(file: any) {
     const isLt2M = file.size / 1024 / 1024 < 200;
     if (!isLt2M) {
       message.error('附件大小不能超过200M!');

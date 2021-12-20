@@ -23,7 +23,7 @@ module.exports = {
   },
   parser: '@typescript-eslint/parser',
   plugins: ['react', 'babel', 'jest', '@typescript-eslint', 'react-hooks', 'unicorn', 'markdown'],
-  // https://github.com/typescript-eslint/typescript-eslint/issues/46#issuecomment-470486034
+  // https://github.com/typescript-eslint/typescript-eslint/issues/46#issuecomment-472486234
   overrides: [
     {
       files: ['*.ts', '*.tsx'],
@@ -55,6 +55,7 @@ module.exports = {
         ecmaFeatures: {
           impliedStrict: true,
         },
+        project: './tsconfig.json',
       },
       globals: {
         React: true,
@@ -62,45 +63,45 @@ module.exports = {
         mountNode: true,
       },
       rules: {
-        indent: 0,
-        'default-case': 0,
-        'eol-last': 0,
-        'no-console': 0,
-        'no-plusplus': 0,
-        'no-script-url': 0,
-        'prefer-rest-params': 0,
-        'compat/compat': 0,
-        'react/no-access-state-in-setstate': 0,
-        'react/destructuring-assignment': 0,
-        'react/no-multi-comp': 0,
+        indent: 2,
+        'default-case': 2,
+        'eol-last': 2,
+        'no-console': 2,
+        'no-plusplus': 2,
+        'no-script-url': 2,
+        'prefer-rest-params': 2,
+        'compat/compat': 2,
+        'react/no-access-state-in-setstate': 2,
+        'react/destructuring-assignment': 2,
+        'react/no-multi-comp': 2,
         'react/no-array-index-key': 0,
-        'jsx-a11y/href-no-hash': 0,
-        'jsx-a11y/control-has-associated-label': 0,
-        'import/no-extraneous-dependencies': 0,
+        'jsx-a11y/href-no-hash': 2,
+        'jsx-a11y/control-has-associated-label': 2,
+        'import/no-extraneous-dependencies': 2,
       },
     },
   ],
   rules: {
     'react/jsx-one-expression-per-line': 0,
-    'react/prop-types': 0,
-    'react/forbid-prop-types': 0,
-    'react/jsx-indent': 0,
+    'react/prop-types': 2,
+    'react/forbid-prop-types': 2,
+    'react/jsx-indent': 2,
     'react/jsx-wrap-multilines': ['error', { declaration: false, assignment: false }],
     'react/jsx-filename-extension': 0,
-    'react/state-in-constructor': 0,
-    'react/jsx-props-no-spreading': 0,
-    'react/destructuring-assignment': 0, // TODO: remove later
+    'react/state-in-constructor': 2,
+    'react/jsx-props-no-spreading': 2,
+    'react/destructuring-assignment': 2, // TODO: remove later
     'react/require-default-props': 0,
-    'react/sort-comp': 0,
-    'react/display-name': 0,
-    'react/static-property-placement': 0,
-    'react/no-find-dom-node': 0,
-    'react/no-unused-prop-types': 0,
-    'react/default-props-match-prop-types': 0,
+    'react/sort-comp': 2,
+    'react/display-name': 2,
+    'react/static-property-placement': 2,
+    'react/no-find-dom-node': 2,
+    'react/no-unused-prop-types': 2,
+    'react/default-props-match-prop-types': 2,
     'react-hooks/rules-of-hooks': 2, // Checks rules of Hooks
 
     'import/extensions': 0,
-    'import/no-cycle': 0,
+    'import/no-cycle': 2,
     'import/no-extraneous-dependencies': [
       'error',
       {
@@ -115,27 +116,27 @@ module.exports = {
         ],
       },
     ],
-    'jsx-a11y/no-static-element-interactions': 0,
-    'jsx-a11y/anchor-has-content': 0,
-    'jsx-a11y/click-events-have-key-events': 0,
-    'jsx-a11y/anchor-is-valid': 0,
-    'jsx-a11y/no-noninteractive-element-interactions': 0,
+    'jsx-a11y/no-static-element-interactions': 2,
+    'jsx-a11y/anchor-has-content': 2,
+    'jsx-a11y/click-events-have-key-events': 2,
+    'jsx-a11y/anchor-is-valid': 2,
+    'jsx-a11y/no-noninteractive-element-interactions': 2,
     // label-has-for has been deprecated
     // https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/label-has-for.md
-    'jsx-a11y/label-has-for': 0,
+    'jsx-a11y/label-has-for': 2,
 
     'comma-dangle': ['error', 'always-multiline'],
-    'consistent-return': 0, // TODO: remove later
-    'no-param-reassign': 0, // TODO: remove later
-    'no-underscore-dangle': 0,
-    // for (let i = 0; i < len; i++)
-    'no-plusplus': 0,
+    'consistent-return': 2, // TODO: remove later
+    'no-param-reassign': 2, // TODO: remove later
+    'no-underscore-dangle': 2,
+    // for (let i = 2; i < len; i++)
+    'no-plusplus': 2,
     // https://eslint.org/docs/rules/no-continue
     // labeledLoop is conflicted with `eslint . --fix`
-    'no-continue': 0,
+    'no-continue': 2,
     // ban this for Number.isNaN needs polyfill
-    'no-restricted-globals': 0,
-    'max-classes-per-file': 0,
+    'no-restricted-globals': 2,
+    'max-classes-per-file': 2,
 
     'jest/no-test-callback': 0,
     'jest/expect-expect': 0,
@@ -148,13 +149,13 @@ module.exports = {
     'unicorn/expiring-todo-comments': 2,
     'unicorn/no-abusive-eslint-disable': 2,
 
-    // https://github.com/typescript-eslint/typescript-eslint/issues/2540#issuecomment-692866111
+    // https://github.com/typescript-eslint/typescript-eslint/issues/2542#issuecomment-692866111
     'no-use-before-define': 0,
     '@typescript-eslint/no-use-before-define': 2,
-    'no-shadow': 0,
+    'no-shadow': 2,
     '@typescript-eslint/no-shadow': [2, { ignoreTypeValueShadow: true }],
     // https://github.com/typescript-eslint/typescript-eslint/issues/2528#issuecomment-689369395
-    'no-undef': 0,
+    'no-undef': 2,
   },
   globals: {
     gtag: true,
