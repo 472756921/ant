@@ -87,6 +87,7 @@ function Head({
             formList={queryFormList?.filter(it => it.show)}
             contextSize={contextSize}
             form={form}
+            key="head"
           />
         </div>
         {queryFormList?.filter(it => it.show).length !== queryFormList.length && (
@@ -139,6 +140,7 @@ function Head({
           contextSize={contextSize}
           form={form2}
           onFormFinish={onseacher}
+          key="Modal"
         />
       </Modal>
     </div>

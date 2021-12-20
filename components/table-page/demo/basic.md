@@ -62,7 +62,7 @@ const queryFormList = [
 
 const publicConfig = {
   drawer: {
-    dom: <div>123</div>,
+    dom: '',
     formSubmit: (data, type, closeDrawerFn) => {
       closeDrawerFn();
     },

