@@ -27,7 +27,7 @@ interface removeFileFnI {
   id: number;
   callback?(): void;
 }
-interface FilesI {
+export interface FilesI {
   name: string;
   operator?: string;
   path?: string;
@@ -37,6 +37,11 @@ interface FilesI {
   isDeleted?: string | boolean;
   [propName: string]: any;
 }
+
+interface CallBackFNI {
+  getData: () => Array<FilesI>;
+}
+
 interface UploadInFilePropsI {
   action?: string;
   headers?: headersI;
@@ -44,7 +49,7 @@ interface UploadInFilePropsI {
   disabled?: boolean;
   removeFileFn?(): removeFileFnI;
   fileListData?: Array<FilesI>;
-  getFileDataFN(): string;
+  getFileDataFN: (callobj: CallBackFNI) => Array<FilesI>;
   [propName: string]: any;
 }
 

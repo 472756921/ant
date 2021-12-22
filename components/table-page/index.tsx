@@ -1,14 +1,21 @@
 import * as React from 'react';
 import { useState } from 'react';
-import Head from './head';
+import Head, { headI } from './head';
 import Main from './main';
 import Foot from './foot';
 import Drawer from './drawer';
 import { ConfigContext } from '../config-provider';
 import SizeContext, { SizeType } from '../config-provider/SizeContext';
 
+interface publicConfigI {
+  drawer?: string;
+}
+
 export interface TablePageProps {
   size?: SizeType;
+  prefixCls?: string;
+  head: headI;
+  publicConfig: publicConfigI;
 }
 
 function TablePage({ size: propSize, ...props }: TablePageProps) {
@@ -25,9 +32,9 @@ function TablePage({ size: propSize, ...props }: TablePageProps) {
 
   return (
     <SizeContext.Consumer>
-      {contextSize => {
+      {(contextSize: SizeType) => {
         const persize = propSize !== undefined ? propSize : contextSize;
-        const size = persize || contextSize || 'default';
+        const size = persize || contextSize;
         return (
           <div className={`${prefixCls}-tablePage`}>
             <Head

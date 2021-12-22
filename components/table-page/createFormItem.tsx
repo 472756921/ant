@@ -1,6 +1,8 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-case-declarations */
 import * as React from 'react';
-import Form from '../form';
+import Form, { FormInstance } from '../form';
 import Input from '../input';
 import Select from '../select';
 import Cascader from '../cascader';
@@ -9,13 +11,41 @@ import Radio from '../radio';
 import DatePicker from '../date-picker';
 import TimePicker from '../time-picker';
 import { randomNumber } from './utils';
+import { SizeType } from '../config-provider/SizeContext';
 
 const { TextArea } = Input;
 const { Option } = Select;
 const { RangePicker: DatePickerRangePicker } = DatePicker;
 const { RangePicker: TimePickerRangePicker } = TimePicker;
 
-function setStatus(data) {
+type LayoutType = Parameters<typeof Form>[0]['layout'];
+type status = 'DISABLE' | 'ENABLE';
+interface FormItemI {
+  formList: Array<any>;
+  form: FormInstance;
+  onFormFinish?: () => any;
+  contextSize: SizeType;
+  layout?: LayoutType;
+}
+interface checkListI {
+  value: string;
+  label: string;
+  status: status;
+  disabled?: boolean;
+  children?: any;
+}
+interface ListItemI {
+  propsForm?: any;
+  propsElement?: any;
+  label: string;
+  name?: string;
+  type: string;
+  checkList: Array<checkListI>;
+  disabled?: boolean | string;
+  render: (props: any) => any;
+}
+
+function setStatus(data: Array<checkListI>) {
   return data?.map(it => {
     it.disabled = it.status === 'DISABLE';
     if (it?.children?.length) {
@@ -46,10 +76,9 @@ const GetFormContent = (data: ListItemI) => {
             width: '100%',
           }}
           {...data?.propsElement}
-          className={Style.noborder}
         >
           {data?.checkList?.map((it: checkListI, i: number) => (
-            <Option value={it.value} key={i.value} disabled={it.status === 'DISABLE'}>
+            <Option value={it.value} key={`${it.value}_${i}`} disabled={it.status === 'DISABLE'}>
               {it.label}
             </Option>
           ))}
@@ -78,7 +107,7 @@ const GetFormContent = (data: ListItemI) => {
         <Radio.Group disabled={data?.disabled} {...data?.propsElement}>
           {data?.checkList?.map((it: checkListI) => (
             <Radio value={it.value} key={it.value}>
-              {it.lable}
+              {it.label}
             </Radio>
           ))}
         </Radio.Group>
@@ -132,7 +161,7 @@ const GetFormContent = (data: ListItemI) => {
             TimePicker,
             TimePickerRangePicker,
             TextArea,
-            disabled,
+            disabled: data?.disabled,
           })
         : '';
     default:
@@ -140,7 +169,7 @@ const GetFormContent = (data: ListItemI) => {
   }
 };
 
-const createFormItem = (data: ListItemI, i: number, layout) => {
+const createFormItem = (data: ListItemI, i: number, layout: string) => {
   let FormItems = (
     <Form.Item {...data?.propsForm} label={data?.label} name={data?.name} key={i + randomNumber}>
       {GetFormContent(data)}
@@ -152,13 +181,22 @@ const createFormItem = (data: ListItemI, i: number, layout) => {
   return FormItems;
 };
 
-function FormItem({ formList, form, onFormFinish, contextSize, layout = 'inline' }) {
-  let formItem = [];
+function FormItem({ formList, form, onFormFinish, contextSize, layout = 'inline' }: FormItemI) {
+  let formItem: Array<JSX.Element> = [];
   if (Array.isArray(formList)) {
     formItem = formList?.map((it, i) => createFormItem(it, i, layout));
   }
   return (
-    <Form layout={layout} form={form} size={contextSize} onFinish={onFormFinish}>
+    <Form
+      layout={layout}
+      form={form}
+      size={contextSize}
+      onFinish={() => {
+        if (onFormFinish) {
+          onFormFinish();
+        }
+      }}
+    >
       {formItem}
     </Form>
   );

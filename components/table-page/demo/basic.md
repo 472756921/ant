@@ -16,8 +16,6 @@ Default activate first tab.
 ```jsx
 import { TablePage } from 'antd';
 
-const { TabPane } = TablePage;
-
 function callback(key) {
   console.log(key);
 }

@@ -7,14 +7,43 @@ import CreateFormItem from './createFormItem';
 import Modal from '../modal';
 import UploadInFile from './components/upload';
 import { randomNumber } from './utils';
+import { SizeType } from '../config-provider/SizeContext';
+import { FilesI } from './components/upload';
 
-// interface HeadI{
+export interface headI {
+  queryFormList?: Array<any>;
+  pageTitle?: string;
+  optionsBtns?: (arg0: SizeType) => JSX.Element;
+  onseacher?: () => any;
+  contextSize?: SizeType;
+  prefixCls: string;
+  openPanel: () => any;
+}
 
-// }
+interface optionsBtnsInSystemFnI {
+  add: () => any;
+  import: () => any;
+  export: () => any;
+  [propName: string]: any;
+}
+interface optionsBtnsInSystemTextI {
+  add: string;
+  import: string;
+  export: string;
+  [propName: string]: string;
+}
+interface OpListItemI {
+  name: string;
+  actionFN: (...arg: any) => JSX.Element;
+}
 
 const optionsBtnsInSystem = ['add', 'import', 'export'];
-const optionsBtnsInSystemText = { add: '新增', import: '导入', export: '导出' };
-const defaultoptionsBtns = contextSize => <Button size={contextSize}>按钮</Button>;
+const optionsBtnsInSystemText: optionsBtnsInSystemTextI = {
+  add: '新增',
+  import: '导入',
+  export: '导出',
+};
+const defaultoptionsBtns = (contextSize: SizeType) => <Button size={contextSize}>按钮</Button>;
 
 function Head({
   contextSize,
@@ -24,15 +53,17 @@ function Head({
   onseacher,
   prefixCls,
   openPanel,
-}) {
+}: headI) {
   const [form] = Form.useForm();
   const [form2] = Form.useForm();
   const [importFlag, setimportFlag] = useState(false);
   const [moreQueryFlag, setmoreQueryFlag] = useState(false);
   const [uploadFile, setuploadFile] = useState('');
 
-  prefixCls += '-tablePage';
-  const optionsBtnsInSystemFn = {
+  let hprefixCls = prefixCls;
+  hprefixCls += '-tablePage';
+
+  const optionsBtnsInSystemFn: optionsBtnsInSystemFnI = {
     add: () => {
       openPanel();
     },
@@ -44,15 +75,18 @@ function Head({
     },
   };
 
-  const createOptionsBtns = size => {
+  const createOptionsBtns = (size: SizeType) => {
     if (Array.isArray(optionsBtns)) {
-      return optionsBtns?.map(it => {
-        let opname = it;
+      return optionsBtns?.map((it: string | OpListItemI) => {
+        let opname = '';
         let actionFN = null;
 
         if (typeof it === 'object') {
           opname = it?.name;
           actionFN = it?.actionFN;
+        }
+        if (typeof it === 'string') {
+          opname = it;
         }
         if (optionsBtnsInSystem.includes(opname))
           return (
@@ -68,30 +102,31 @@ function Head({
       });
     }
     if (typeof optionsBtns === 'function') {
-      return optionsBtns();
+      return optionsBtns(contextSize);
     }
     return optionsBtns;
   };
 
   return (
-    <div className={`${prefixCls}-headContent`}>
-      <div className={`${prefixCls}-headContent-head`}>
-        <div className={`${prefixCls}-headContent-head-tablePageHeadTitle`}>{pageTitle}</div>
-        <div className={`${prefixCls}-headContent-head-tablePageHeadBtns`}>
+    <div className={`${hprefixCls}-headContent`}>
+      <div className={`${hprefixCls}-headContent-head`}>
+        <div className={`${hprefixCls}-headContent-head-tablePageHeadTitle`}>{pageTitle}</div>
+        <div className={`${hprefixCls}-headContent-head-tablePageHeadBtns`}>
           <Space>{createOptionsBtns(contextSize)}</Space>
         </div>
       </div>
-      <div className={`${prefixCls}-headContent-tablePageQuery`}>
-        <div className={`${prefixCls}-headContent-tablePageQuery-queryC`}>
+      <div className={`${hprefixCls}-headContent-tablePageQuery`}>
+        <div className={`${hprefixCls}-headContent-tablePageQuery-queryC`}>
           <CreateFormItem
             formList={queryFormList?.filter(it => it.show)}
             contextSize={contextSize}
             form={form}
+            onFormFinish={onseacher}
             key="head"
           />
         </div>
         {queryFormList?.filter(it => it.show).length !== queryFormList.length && (
-          <div className={`${prefixCls}-headContent-tablePageQuery-querM`}>
+          <div className={`${hprefixCls}-headContent-tablePageQuery-querM`}>
             <Button type="primary" onClick={onseacher}>
               查询
             </Button>{' '}
@@ -114,7 +149,10 @@ function Head({
         }}
       >
         <div>
-          <UploadInFile prefixCls={prefixCls} getFileDataFN={data => setuploadFile(data)} />
+          <UploadInFile
+            prefixCls={hprefixCls}
+            getFileDataFN={(data: Array<FilesI>) => setuploadFile(data)}
+          />
         </div>
       </Modal>
       <Modal
